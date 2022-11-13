@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+  text-align: center;
+}
+
+table, th, td {
+  border: 1px solid #A70532;
+}
+
+.list-group, .list-group-item {
+  background-color: transparent;
+}
+
+.list-group-flush > .list-group-item:last-child {
+  border-bottom-width: 1px;
+  border-bottom-color: #A70532;
+}

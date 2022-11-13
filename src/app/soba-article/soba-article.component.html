@@ -1,0 +1,24 @@
+<table class="table-light table-bordered border-danger">
+  <tr>
+    <th scope="col">Naziv</th>
+    <th scope="col">Broj kreveta za odrasle</th>
+    <th scope="col">Broj kreveta za decu</th>
+    <th scope="col">Jedinice</th>
+    <th scope="col">Kvadratnih metra</th>
+    <th scope="col">Opis</th>
+    <th scope="col">Dodatna oprema</th>
+  </tr>
+  <tr *ngFor="let soba of sobe">
+    <td>{{soba.naziv}}</td>
+    <td>{{soba.brojKrevetaZaOdrasle}}</td>
+    <td>{{soba.brojKrevetaZaDecu}}</td>
+    <td>{{soba.jedinice}}</td>
+    <td>{{soba.kvadratniMetri}}m<sup>2</sup></td>
+    <td>{{soba.opis}}</td>
+    <td>
+      <ul class="list-group list-group-flush" *ngFor="let oprema of soba.dodatneOpcije">
+        <li class="list-group-item">{{oprema}}</li>
+      </ul>
+    </td>
+  </tr>
+</table>
