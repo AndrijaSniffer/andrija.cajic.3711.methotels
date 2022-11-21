@@ -1,0 +1,41 @@
+<app-soba-article [sobe]="listaSoba"></app-soba-article>
+
+<hr/>
+
+<button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#forma" aria-expanded="false"
+        aria-controls="forma" (click)="changeButtonText()">{{formButtonText}}
+</button>
+<div class="collapse" id="forma">
+  <div class="card card-body">
+    <form class="needs-validation" novalidate>
+
+      <label for="naziv" class="form-label">Naziv sobe:</label>
+      <input type="text" class="form-control" id="naziv" #naziv required>
+
+      <label for="brojKrevetaZaOdrasle" class="form-label">Broj kreveta za odrasle:</label>
+      <input type="number" class="form-control" id="brojKrevetaZaOdrasle" #BKZO required>
+
+      <label for="brojKrevetaZaDecu" class="form-label">Broj kreveta za decu:</label>
+      <input type="number" class="form-control" id="brojKrevetaZaDecu" #BKZD required>
+
+      <label for="jedinice" class="form-label">Jedinice:</label>
+      <input type="number" class="form-control" id="jedinice" #jedinice required>
+
+      <label for="kvadratniMetri" class="form-label">Kvadratnih metra:</label>
+      <input type="number" class="form-control" id="kvadratniMetri" #metri required>
+
+      <label for="opis" class="form-label">Opis:</label>
+      <textarea rows="4" class="form-control" id="opis" #opis></textarea>
+
+      <label for="dodatna" class="form-label">Dodatna oprema (odvojite zarezom ","):</label>
+      <input type="text" class="form-control" id="dodatna" placeholder="WiFi, TV, Grejanje, Tepih...." #dodatna>
+
+      <div style="text-align: right">
+        <button class="btn btn-primary"
+                (click)="addSoba(naziv.value, BKZO.value, BKZD.value, jedinice.value, metri.value, opis.value, dodatna.value)">
+          Dodaj sobu
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

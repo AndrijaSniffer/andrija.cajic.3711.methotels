@@ -1,36 +1,17 @@
-<h1 class="display-1">Met Hotels</h1>
-
-<form class="needs-validation" novalidate>
-
-  <label for="naziv" class="form-label">Naziv sobe:</label>
-  <input type="text" class="form-control" id="naziv" #naziv required>
-
-  <label for="brojKrevetaZaOdrasle" class="form-label">Broj kreveta za odrasle:</label>
-  <input type="number" class="form-control" id="brojKrevetaZaOdrasle" #BKZO required>
-
-  <label for="brojKrevetaZaDecu" class="form-label">Broj kreveta za decu:</label>
-  <input type="number" class="form-control" id="brojKrevetaZaDecu" #BKZD required>
-
-  <label for="jedinice" class="form-label">Jedinice:</label>
-  <input type="number" class="form-control" id="jedinice" #jedinice required>
-
-  <label for="kvadratniMetri" class="form-label">Kvadratnih metra:</label>
-  <input type="number" class="form-control" id="kvadratniMetri" #metri required>
-
-  <label for="opis" class="form-label">Opis:</label>
-  <textarea rows="4" class="form-control" id="opis" #opis></textarea>
-
-  <label for="dodatna" class="form-label">Dodatna oprema (odvojite zarezom ","):</label>
-  <input type="text" class="form-control" id="dodatna" placeholder="WiFi, TV, Grejanje, Tepih...." #dodatna>
-
-  <div style="text-align: right">
-    <button class="btn btn-primary"
-            (click)="addSoba(naziv.value, BKZO.value, BKZD.value, jedinice.value, metri.value, opis.value, dodatna.value)">
-      Dodaj sobu
-    </button>
+<div class="row">
+  <div class="row">
+    <div class="col-12">
+      <app-nav-bar></app-nav-bar>
+    </div>
   </div>
-</form>
+  <div class="col-3"></div>
+  <div class="col-6">
+    <h1 class="display-1">Met Hotels</h1>
+    <router-outlet></router-outlet>
+  </div>
+  <div class="col-3"></div>
+</div>
 
-<hr/>
 
-<app-soba-article [sobe]="listaSoba"></app-soba-article>
+
+

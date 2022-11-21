@@ -15,3 +15,8 @@ table, th, td {
   border-bottom-width: 1px;
   border-bottom-color: #A70532;
 }
+
+h2{
+  color: #f7084c;
+  text-align: center;
+}
