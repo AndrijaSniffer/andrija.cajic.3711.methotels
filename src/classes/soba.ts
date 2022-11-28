@@ -5,7 +5,7 @@ export class Soba {
   jedinice: number
   kvadratniMetri: number
   opis: string | null
-  dodatneOpcije: string[] | null
+  dodatneOpcije: {name: string, selected: boolean}[]
 
   constructor(naziv: string,
               brojKrevetaZaOdrasle: number,
@@ -13,7 +13,7 @@ export class Soba {
               jedinice: number,
               kvadratniMetri: number,
               opis: string | null,
-              dodatneOpcije: string[] | null) {
+              dodatneOpcije: {name: string, selected: boolean}[]) {
     this.naziv = naziv
     this.opis = opis
     this.brojKrevetaZaDecu = brojKrevetaZaDecu

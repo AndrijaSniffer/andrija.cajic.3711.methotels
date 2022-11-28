@@ -7,32 +7,112 @@
 </button>
 <div class="collapse" id="forma">
   <div class="card card-body">
-    <form class="needs-validation" novalidate>
+
+    <form class="needs-validation" (submit)="addSoba()" [formGroup]="forma" #form="ngForm">
 
       <label for="naziv" class="form-label">Naziv sobe:</label>
-      <input type="text" class="form-control" id="naziv" #naziv required>
+      <div class="input-group has-validation">
+        <input type="text" class="form-control" id="naziv" name="naziv" formControlName="naziv" required minlength="3"
+               maxlength="25" [class.is-invalid]="naziv.invalid && (naziv.dirty || naziv.touched)">
+        <div *ngIf="naziv.invalid && (naziv.dirty || naziv.touched)" class="invalid-feedback">
+          <div *ngIf="naziv.errors?.['required']">
+            Naziv sobe je obavezno!
+          </div>
+          <div *ngIf="naziv.errors?.['minlength']">
+            Naziv sobe mora biti najmanje 3 karaktera!
+          </div>
+          <div *ngIf="naziv.errors?.['maxlength']">
+            Naziv sobe mora biti manje od 25 karaktera!
+          </div>
+        </div>
+      </div>
 
       <label for="brojKrevetaZaOdrasle" class="form-label">Broj kreveta za odrasle:</label>
-      <input type="number" class="form-control" id="brojKrevetaZaOdrasle" #BKZO required>
+      <input type="number" class="form-control" formControlName="BKZO" id="brojKrevetaZaOdrasle"
+             name="brojKrevetaZaOdrasle" required min="1"
+             max="3" [class.is-invalid]="BKZO.invalid && (BKZO.dirty || BKZO.touched)">
+      <div *ngIf="BKZO.invalid && (BKZO.dirty || BKZO.touched)" class="invalid-feedback">
+        <div *ngIf="BKZO.errors?.['required']">
+          Broj kreveta je obavezno!
+        </div>
+        <div *ngIf="BKZO.errors?.['min']">
+          Broj kreveta mora biti najmanje 1!
+        </div>
+        <div *ngIf="BKZO.errors?.['max']">
+          Broj kreveta ne moze biti preko 3!
+        </div>
+      </div>
 
       <label for="brojKrevetaZaDecu" class="form-label">Broj kreveta za decu:</label>
-      <input type="number" class="form-control" id="brojKrevetaZaDecu" #BKZD required>
+      <input type="number" class="form-control" formControlName="BKZD" id="brojKrevetaZaDecu" name="brojKrevetaZaDecu"
+             required min="0"
+             max="3" [class.is-invalid]="BKZD.invalid && (BKZD.dirty || BKZD.touched)">
+      <div *ngIf="BKZD.invalid && (BKZD.dirty || BKZD.touched)" class="invalid-feedback">
+        <div *ngIf="BKZD.errors?.['required']">
+          Broj kreveta je obavezno!
+        </div>
+        <div *ngIf="BKZD.errors?.['min']">
+          Broj kreveta ne moze biti negativno!
+        </div>
+        <div *ngIf="BKZD.errors?.['max']">
+          Broj kreveta ne moze biti preko 3!
+        </div>
+      </div>
 
       <label for="jedinice" class="form-label">Jedinice:</label>
-      <input type="number" class="form-control" id="jedinice" #jedinice required>
+      <input type="number" class="form-control" id="jedinice" formControlName="jedinice" name="jedinice" required
+             min="1"
+             max="6" [class.is-invalid]="jedinice.invalid && (jedinice.dirty || jedinice.touched)">
+      <div *ngIf="jedinice.invalid && (jedinice.dirty || jedinice.touched)" class="invalid-feedback">
+        <div *ngIf="jedinice.errors?.['required']">
+          Broj jedinica je obavezno!
+        </div>
+        <div *ngIf="jedinice.errors?.['min']">
+          Broj jedinica mora biti najmanje 1!
+        </div>
+        <div *ngIf="jedinice.errors?.['max']">
+          Broj jedinica ne moze biti preko 6!
+        </div>
+      </div>
 
       <label for="kvadratniMetri" class="form-label">Kvadratnih metra:</label>
-      <input type="number" class="form-control" id="kvadratniMetri" #metri required>
+      <input type="number" class="form-control" id="kvadratniMetri" formControlName="metri" name="metri" required
+             min="6"
+             max="4131" [class.is-invalid]="metri.invalid && (metri.dirty || metri.touched)">
+      <div *ngIf="metri.invalid && (metri.dirty || metri.touched)" class="invalid-feedback">
+        <div *ngIf="metri.errors?.['required']">
+          Broj kvadratnih metra sobe je obavezno!
+        </div>
+        <div *ngIf="metri.errors?.['min']">
+          Broj kvadratnih metra sobe mora biti najmanje 6m<sup>2</sup>!
+        </div>
+        <div *ngIf="metri.errors?.['max']">
+          Broj kvadratnih metra sobe ne moze biti preko 4131m<sup>2</sup>!
+        </div>
+      </div>
 
       <label for="opis" class="form-label">Opis:</label>
-      <textarea rows="4" class="form-control" id="opis" #opis></textarea>
+      <textarea rows="4" class="form-control" id="opis" formControlName="opis" name="opis" minlength="6"
+                maxlength="255" [class.is-invalid]="opis.invalid && (opis.dirty || opis.touched)"></textarea>
+      <div *ngIf="opis.invalid && (opis.dirty || opis.touched)" class="invalid-feedback">
+        <div *ngIf="opis.errors?.['min']">
+          Opis mora biti najmanje 6 karaktera duzine!
+        </div>
+        <div *ngIf="opis.errors?.['max']">
+          Opis ne moze biti vise od 255 karaktera duzine!
+        </div>
+      </div>
 
-      <label for="dodatna" class="form-label">Dodatna oprema (odvojite zarezom ","):</label>
-      <input type="text" class="form-control" id="dodatna" placeholder="WiFi, TV, Grejanje, Tepih...." #dodatna>
+      <div class="form-check" *ngFor="let option of checkboxOptions; let i=index">
+        <input class="form-check-input" [checked]="option.selected" (change)="onCheckChange($event)" type="checkbox"
+               id="{{option.name}}">
+        <label class="form-check-label" for="{{option.name}}">
+          {{option.name}}
+        </label>
+      </div>
 
       <div style="text-align: right">
-        <button class="btn btn-primary"
-                (click)="addSoba(naziv.value, BKZO.value, BKZD.value, jedinice.value, metri.value, opis.value, dodatna.value)">
+        <button type="submit" class="btn btn-primary">
           Dodaj sobu
         </button>
       </div>

@@ -19,7 +19,7 @@
     <td>{{soba.opis}}</td>
     <td>
       <ul class="list-group list-group-flush" *ngFor="let oprema of soba.dodatneOpcije">
-        <li class="list-group-item">{{oprema}}</li>
+        <li class="list-group-item" *ngIf="oprema.selected">{{oprema.name}}</li>
       </ul>
     </td>
   </tr>
