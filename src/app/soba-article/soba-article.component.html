@@ -9,6 +9,8 @@
     <th scope="col">Kvadratnih metra</th>
     <th scope="col">Opis</th>
     <th scope="col">Dodatna oprema</th>
+    <th scope="col">Broj noci</th>
+    <th></th>
   </tr>
   <tr *ngFor="let soba of sobe">
     <td>{{soba.naziv}}</td>
@@ -22,5 +24,7 @@
         <li class="list-group-item" *ngIf="oprema.selected">{{oprema.name}}</li>
       </ul>
     </td>
+    <td><input class="form-control" id="numberOfNights" name="numberOfNights" value="1" type="number" min="1" max="30" #numberOfNights></td>
+    <td><button class="btn btn-success" (click)="reservisiSobu(soba, numberOfNights.value)">Rezervisi sobu</button></td>
   </tr>
 </table>

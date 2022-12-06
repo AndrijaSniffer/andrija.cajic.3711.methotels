@@ -29,6 +29,8 @@ export class PonudaComponent implements OnInit {
   checkboxOptions: checkbox[];
   forma!: FormGroup;
   soba: Soba;
+  cena: number;
+  dodatnaCena: number;
 
   constructor(private _fb: FormBuilder) {
     this.soba = {} as ISoba;
@@ -129,8 +131,7 @@ export class PonudaComponent implements OnInit {
       });
 
       formArray.push(new FormControl({name: event.target.id, selected: event.target.value}));
-    }
-    else {
+    } else {
       let i: number = 0;
 
       this.checkboxOptions.forEach(val => {
