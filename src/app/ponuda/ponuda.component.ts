@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Soba} from "../../classes/soba";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {DodatneOpcijeService, IGetResponse} from "../services/dodatne-opcije.service";
+import {DodatnaOpcija} from "../../classes/dodatna-opcija";
+import {RoomService} from "../services/room.service";
 
 interface ISoba {
   naziv: string;
@@ -12,37 +15,26 @@ interface ISoba {
   dodatneOpcije: { name: string, selected: boolean }[];
 }
 
-interface checkbox {
-  name: string;
-  selected: boolean;
-}
-
 @Component({
   selector: 'app-ponuda',
   templateUrl: './ponuda.component.html',
   styleUrls: ['./ponuda.component.css']
 })
 export class PonudaComponent implements OnInit {
-  listaSoba: Soba[] = [];
   isFormOpen: boolean = false;
   formButtonText: string = "Otvori formu";
-  checkboxOptions: checkbox[];
+  checkboxOptions: DodatnaOpcija[];
   forma!: FormGroup;
   soba: Soba;
-  cena: number;
-  dodatnaCena: number;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder,
+              private _dodatneOpcijeService: DodatneOpcijeService,
+              private _roomService: RoomService) {
     this.soba = {} as ISoba;
-    this.checkboxOptions = [
-      {name: "WiFi", selected: false},
-      {name: "Klima", selected: false},
-      {name: "Mini bar", selected: false},
-      {name: "Sauna", selected: false}
-    ];
   }
 
   ngOnInit(): void {
+    this.getDodatneOpcije();
     this.buildForm();
   }
 
@@ -100,10 +92,10 @@ export class PonudaComponent implements OnInit {
         brojKrevetaZaDecu: this.forma.get("BKZD")!.value,
         brojKrevetaZaOdrasle: this.forma.get("BKZO")!.value,
         naziv: this.forma.get("naziv")!.value,
-        dodatneOpcije: this.forma.get("dodatneOpcije")!.value
+        // dodatneOpcije: this.forma.get("dodatneOpcije")!.value
       }
-      console.warn("Soba", soba);
-      this.listaSoba.push(soba);
+
+      this._roomService.create(soba);
 
       this.forma.reset();
       this.checkboxOptions.forEach(val => {
@@ -126,7 +118,7 @@ export class PonudaComponent implements OnInit {
 
     if (event.target.checked) {
       this.checkboxOptions.forEach(val => {
-        if (val.name == event.target.id)
+        if (val.naziv == event.target.id)
           val.selected = true;
       });
 
@@ -135,7 +127,7 @@ export class PonudaComponent implements OnInit {
       let i: number = 0;
 
       this.checkboxOptions.forEach(val => {
-        if (val.name == event.target.id)
+        if (val.naziv == event.target.id)
           val.selected = false;
       });
 
@@ -147,5 +139,13 @@ export class PonudaComponent implements OnInit {
         i++;
       });
     }
+  }
+
+  async getDodatneOpcije() {
+    this._dodatneOpcijeService.getAll().subscribe(data => {
+      let res = data as IGetResponse
+      console.warn(res.data);
+      this.checkboxOptions = res.data
+    });
   }
 }

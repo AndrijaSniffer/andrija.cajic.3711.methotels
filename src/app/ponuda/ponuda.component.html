@@ -1,4 +1,4 @@
-<app-soba-article [sobe]="listaSoba"></app-soba-article>
+<app-soba-article></app-soba-article>
 
 <hr/>
 
@@ -105,9 +105,9 @@
 
       <div class="form-check" *ngFor="let option of checkboxOptions; let i=index">
         <input class="form-check-input" [checked]="option.selected" (change)="onCheckChange($event)" type="checkbox"
-               id="{{option.name}}">
-        <label class="form-check-label" for="{{option.name}}">
-          {{option.name}}
+               id="{{option.naziv}}">
+        <label class="form-check-label" for="{{option.naziv}}">
+          {{option.naziv}}
         </label>
       </div>
 

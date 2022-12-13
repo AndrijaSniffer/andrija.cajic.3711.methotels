@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Soba} from "../../classes/soba";
 import {RoomService} from "../services/room.service";
 
@@ -8,12 +8,18 @@ import {RoomService} from "../services/room.service";
   styleUrls: ['./soba-article.component.css']
 })
 export class SobaArticleComponent implements OnInit {
-  @Input() sobe: Soba[]
+  sobe: Soba[] = []
 
   constructor(private _sobaService: RoomService) {
   }
 
   ngOnInit(): void {
+    this._sobaService.getAll().subscribe(res =>{
+      // @ts-ignore
+      res.data.forEach(soba =>{
+        this.sobe.push(new Soba(soba.naziv, soba.broj_kreveta_za_odrasle, soba.broj_kreveta_za_decu, soba.jedinice, soba.kvadratni_metri, soba.opis))
+      })
+    })
   }
 
   reservisiSobu(soba: Soba, brojNoci: string){
